@@ -1,76 +1,57 @@
 package service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 
+import entity.User;
 import junit.framework.Assert;
 
 public class UserServiceTest {
 	
 	@Test
-	public void testIsUserExistWhenUserNoExist() {
+	public void testGetAllUsers() {
 		//is
-		String[] users = { "Damian", "Kamil", "Krystian" };
-		UserService userService = new UserService(users);
+		List<User> users = new ArrayList<User>();
+		users.add(new User(1, "admin", "zaq12wsx"));
+		users.add(new User(2, "krystian", "1111"));
 		//then
-		final boolean result = userService.isUserExist("Marek");
+		UserServiceImpl userService = new UserServiceImpl(users);
+		List<User> usersFromTestClass = userService.getAllUsers();
 		//expected
-		Assert.assertFalse(result);
+		Assert.assertEquals(users, usersFromTestClass);
 	}
 	
 	@Test
-	public void testIsUserExistWhenUserExist() {
+	public void testAddUser() {
 		//is
-		String[] users = { "Damian", "Kamil", "Krystian" };
-		UserService userService = new UserService(users);
+		List<User> users = new ArrayList<User>();
+		User user = new User(1, "admin", "zaq12wsx");
 		//then
-		final boolean result = userService.isUserExist("Kamil");
+		UserServiceImpl userService = new UserServiceImpl(users);
+		userService.addUser(user);
+		List<User> usersFromTestClass = userService.getAllUsers();
 		//expected
-		Assert.assertTrue(result);
-	}
-
-	@Test
-	public void testGetUserCountNormal() {
-		//is
-		String[] users = {"Krystian", "Monika"};
-		UserService userService = new UserService(users);
-		//then
-		final int result = userService.getUsersCount();
-		//expected
-		Assert.assertEquals(2, result);
+		Assert.assertEquals(users, usersFromTestClass);
 	}
 	
 	@Test
-	public void testGetUserCountZero() {
+	public void testRemoveUserById() {
 		//is
-		String[] users = {};
-		UserService userService = new UserService(users);
+		List<User> users = new ArrayList<User>();
+		users.add(new User(1, "admin", "zaq12wsx"));
+		users.add(new User(2, "krystian", "1111"));
 		//then
-		final int result = userService.getUsersCount();
+		UserServiceImpl userService = new UserServiceImpl(users);
+		userService.removeUserById(1);
+		users.remove(0);
+		List<User> usersFromTestClass = userService.getAllUsers();
 		//expected
-		Assert.assertEquals(0, result);
+		Assert.assertEquals(users, usersFromTestClass);
 	}
 	
-	@Test
-	public void testCountRepeatsUserWithRepeats() {
-		//is
-		String[] users = {"Krystian", "Damian", "Damian"};
-		UserService userService = new UserService(users);
-		//then
-		final int result = userService.getLoginRepeats("Damian");
-		//expected
-		Assert.assertEquals(2, result);
-	}
 	
-	@Test
-	public void testCountRepeatsUserWithoutRepeats() {
-		//is
-		String[] users = {"Krystian", "Damian", "Damian"};
-		UserService userService = new UserService(users);
-		//then
-		final int result = userService.getLoginRepeats("Monika");
-		//expected
-		Assert.assertEquals(0, result);
-	}
 	
 	
 }
