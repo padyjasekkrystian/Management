@@ -2,6 +2,8 @@ package entity;
 
 public class Product {
 	
+    public final static String PRODUCT_SEPARATOR = "#";
+	
 	private int id, productCount;
 	private String productName, color;
 	private double price, weight;
@@ -41,8 +43,7 @@ public class Product {
 	}
 
 	public String toString() {
-		return "Product [id=" + id + ", productCount=" + productCount + ", productName=" + productName + ", color="
-				+ color + ", price=" + price + ", weight=" + weight + "]";
+		return id + PRODUCT_SEPARATOR + productName + PRODUCT_SEPARATOR + price + PRODUCT_SEPARATOR + weight + PRODUCT_SEPARATOR + color + PRODUCT_SEPARATOR + productCount;
 	}
 	
 	
