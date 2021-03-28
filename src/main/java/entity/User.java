@@ -2,6 +2,8 @@ package entity;
 
 public class User {
 	
+    public final static String USER_SEPARATOR = "#";
+
 	private int id;
 	private String login, password;
 	
@@ -22,7 +24,7 @@ public class User {
 	}
 
 	public String toString() {
-		return "User [id=" + id + ", login=" + login + ", password=" + password + "]";
+		return  id +  USER_SEPARATOR + login + USER_SEPARATOR + password;
 	}
 	
 	
