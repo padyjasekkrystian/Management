@@ -12,14 +12,29 @@ import java.util.List;
 import api.UserDao;
 import entity.User;
 import entity.parser.UserParser;
+import utils.FileUtils;
 
 public class UserDaoImpl implements UserDao{
 	
-	private final String fileName;
-
-	public UserDaoImpl(String fileName) {
-		this.fileName = fileName;
-	}
+    private static final String fileName = "users.data";
+    private static UserDaoImpl instance = null;
+    
+    private UserDaoImpl() {
+    	try {
+    		FileUtils.createNewFile(fileName);
+    	} catch (IOException e) {
+    		System.out.println("Error with file path");
+    		//exit zamyka appke
+    		System.exit(-1);
+    	}
+    }
+    
+    public static UserDaoImpl getInstance() {
+    	if(instance == null) {
+    		instance = new UserDaoImpl();
+    	}
+    	return instance;
+    }
 
 	public void saveUser(User user) throws IOException {
 		List<User> users = getAllUsers();
